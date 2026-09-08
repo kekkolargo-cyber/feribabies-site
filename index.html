@@ -1,1313 +1,576 @@
-<!DOCTYPE html> <html lang="it" class="scroll-smooth"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Catalogo Completo Capi & Saldi — Ferì Babies Boutique</title> <meta name="description" content="Catalogo ufficiale Ferì Babies Boutique a Santa Maria Capua Vetere. Abbigliamento neonato, battesimo, cerimonia e saldi da 0 a 6 anni." /> <!-- Tailwind CSS CDN --> <script src="https://cdn.tailwindcss.com"></script> <!-- Google Fonts --> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"> <!-- Material Symbols Icons --> <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" /> <script> tailwind.config = { theme: { extend: { colors: { boutique: { cream: '#FCF9F6', surface: '#FFFFFF', sand: '#F6F3F0', taupe: '#E8DFD8', accent: '#C5B4A5', dark: '#2C2523', sale: '#E11D48', salegold: '#B45309', whatsapp: '#25D366', rose: '#EED9D5', blue: '#D7E2E6' } }, fontFamily: { serif: ['"Playfair Display"', 'serif'], sans: ['"Plus Jakarta Sans"', 'sans-serif'] } } } } </script> <style> .badge-pill { @apply inline-flex items-center text-xs font-semibold px-2.5 py-0.5 rounded-full; } .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; } .card-hover:hover { transform: translateY(-3px); box-shadow: 0 10px 25px -5px rgba(44, 37, 35, 0.08); } </style> </head> <body class="bg-boutique-cream text-boutique-dark font-sans antialiased min-h-screen flex flex-col"> <!-- TOP BAR INFORMATIVA --> <div class="bg-boutique-dark text-white text-xs py-2 px-4 text-center font-medium"> <span>📍 Via Alcide de Gasperi, 76 · Santa Maria Capua Vetere (CE) · </span> <span class="text-boutique-accent font-semibold">Ricami a mano personalizzati su ogni capo (+5€)</span> </div> <!-- HEADER PRINCIPALE --> <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-boutique-taupe/60 shadow-sm"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between"> <a href="index.html" class="flex flex-col"> <span class="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-boutique-dark">Ferì</span> <span class="text-[10px] sm:text-xs tracking-widest uppercase font-medium text-boutique-accent -mt-1">Babies Boutique</span> </a> <!-- MENU NAVIGAZIONE --> <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-boutique-dark/80"> <a href="index.html" class="hover:text-boutique-dark transition-colors">Home</a> <a href="catalogo.html" class="text-boutique-dark font-semibold border-b-2 border-boutique-dark pb-1">Catalogo Capi</a> <a href="index.html#saldi" class="text-boutique-sale font-semibold hover:opacity-80 transition-opacity">Saldi</a> <a href="index.html#chisiamo" class="hover:text-boutique-dark transition-colors">Chi Siamo</a> <a href="index.html#contatti" class="hover:text-boutique-dark transition-colors">Contatti</a> </nav> <!-- TASTO WHATSAPP CONCIERGE --> <a href="https://wa.me/393398682305?text=Ciao%20Ferì%20Babies%20Boutique,%20vorrei%20informazioni%20sui%20capi%20del%20catalogo!" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-[#25D366] text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-full hover:bg-[#20bd5a] transition-colors shadow-sm"> <span class="material-symbols-outlined text-base">chat</span> <span class="hidden sm:inline">WhatsApp</span> </a> </div> </header> <!-- INTRODUZIONE CATALOGO & FILTRI INTERATTIVI --> <section class="bg-boutique-sand/60 py-8 border-b border-boutique-taupe/40"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6"> <div> <span class="text-xs uppercase tracking-wider font-semibold text-boutique-salegold">Tutti i Capi in Boutique</span> <h1 class="font-serif text-3xl sm:text-4xl font-bold text-boutique-dark mt-1">Catalogo Capi & Saldi</h1> <p class="text-sm text-boutique-dark/70 mt-1 max-w-xl"> Sfoglia tutti i capi disponibili da 0 mesi a 6 anni. Tutti i capi possono essere personalizzati con nome ricamato a mano (+5€). </p> </div> <div class="text-sm font-medium text-boutique-dark/60 bg-white px-4 py-2 rounded-xl border border-boutique-taupe/60 w-fit"> Mostrati: <span id="count-capi" class="font-bold text-boutique-dark">Tutti i Capi</span> </div> </div> <!-- BOTTONI FILTRO CATEGORIE --> <div class="flex flex-wrap items-center gap-2 pt-2" id="filter-buttons"> <button onclick="filterCapi('all')" class="filter-btn active bg-boutique-dark text-white text-xs font-semibold px-4 py-2 rounded-full transition-all">Tutti i Capi</button> <button onclick="filterCapi('saldi')" class="filter-btn bg-white text-boutique-sale border border-boutique-sale/40 text-xs font-semibold px-4 py-2 rounded-full hover:bg-boutique-sale hover:text-white transition-all">🔥 In Saldo (-30% / -50%)</button> <button onclick="filterCapi('neonato')" class="filter-btn bg-white text-boutique-dark border border-boutique-taupe text-xs font-medium px-4 py-2 rounded-full hover:bg-boutique-sand transition-all">Prima Infanzia (0-6 Mesi)</button> <button onclick="filterCapi('bimbo')" class="filter-btn bg-white text-boutique-dark border border-boutique-taupe text-xs font-medium px-4 py-2 rounded-full hover:bg-boutique-sand transition-all">Bimbi & Bambini (9m - 6 Anni)</button> <button onclick="filterCapi('cerimonia')" class="filter-btn bg-white text-boutique-dark border border-boutique-taupe text-xs font-medium px-4 py-2 rounded-full hover:bg-boutique-sand transition-all">Battesimo & Cerimonia</button> </div> </div> </section> <!-- GRIGLIA PRODOTTI (INIZIO CONTAINER) --> <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full"> <div id="grid-prodotti" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-<!-- CAPO 1: Set Ciniglia Rosa & Copertina -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="cerimonia neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Cerimonia</span>
-          <img src="74f185d5-0cc7-4e62-9da5-a10e502ef5aa.jpeg" alt="Set Ciniglia Rosa con Copertina" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">1 / 3 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Set Ciniglia Rosa con Copertina</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Tutina velluto, copertina orsetto e cappellino</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">79,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20informazioni%20sul%20Set%20Ciniglia%20Rosa%20(79€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
+<!DOCTYPE html> <html lang="it" class="scroll-smooth"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Ferì Babies Boutique · Abbigliamento Neonato & Bambino 0-6 Anni</title> <!-- Tailwind CSS CDN --> <script src="https://cdn.tailwindcss.com"></script> <script> tailwind.config = { theme: { extend: { colors: { 'boutique-cream': '#FCF9F6', 'boutique-sand': '#F6F2ED', 'boutique-taupe': '#E2D7CE', 'boutique-accent': '#D4AF98', 'boutique-dark': '#2C2523', 'boutique-rose': '#F2DDD6', 'boutique-blue': '#D7E4E8' }, fontFamily: { serif: ['Playfair Display', 'Georgia', 'serif'], sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'] } } } } </script> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"> <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" /> <style> .badge-pill { font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 4px 10px; border-radius: 9999px; } .filtro-btn.active { background-color: #2C2523 !important; color: #FFFFFF !important; border-color: #2C2523 !important; } .taglia-btn.active { background-color: #2C2523 !important; color: #FFFFFF !important; border-color: #2C2523 !important; } </style> </head> <body class="bg-boutique-cream text-boutique-dark font-sans antialiased selection:bg-boutique-accent selection:text-white"> <!-- TOP BAR INFORMATIVA --> <div class="bg-boutique-dark text-boutique-cream py-2 px-4 text-center text-xs sm:text-sm font-medium tracking-wide flex justify-center items-center gap-2"> <span class="material-symbols-outlined text-sm text-emerald-400">store</span> <span>Boutique aperta a Santa Maria Capua Vetere in <strong>Via Alcide de Gasperi, 76</strong> · WhatsApp: <a href="https://wa.me/393398682305" class="underline font-bold text-white hover:text-emerald-300">339 8682305</a></span> </div> <!-- HEADER FISSO IN ALTO CON LOGO E LINK --> <header class="sticky top-0 z-50 bg-boutique-cream/95 backdrop-blur-md border-b border-boutique-taupe/60 shadow-xs"> <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between"> <a href="#home" class="flex items-center gap-2"> <span class="font-serif text-2xl font-bold tracking-tight text-boutique-dark">Ferì</span> <span class="text-xs uppercase tracking-widest text-boutique-dark/60 font-semibold border-l border-boutique-taupe pl-2">Babies Boutique</span> </a> <!-- MENU LINK DESKTOP & TABLET --> <nav class="hidden md:flex items-center gap-6 text-xs uppercase tracking-wider font-semibold text-boutique-dark/80"> <a href="#home" class="hover:text-boutique-dark transition-colors">Home</a> <a href="#catalogo" class="hover:text-boutique-dark transition-colors">Catalogo & Saldi</a> <a href="#chi-siamo" class="hover:text-boutique-dark transition-colors">Chi Siamo</a> <a href="#cerimonia" class="hover:text-boutique-dark transition-colors">Cerimonia</a> <a href="#contatti" class="hover:text-boutique-dark transition-colors">Contatti</a> </nav> <a href="https://wa.me/393398682305?text=Salve%20Ferì%20Babies%20Boutique!" target="_blank" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-sm transition-all"> <span class="material-symbols-outlined text-sm">chat</span> WhatsApp </a> </div> <!-- MENU RAPIDO PER SMARTPHONE --> <div class="flex md:hidden overflow-x-auto gap-2 px-3 py-2 border-t border-boutique-taupe/40 bg-white/70 text-xs font-semibold whitespace-nowrap"> <a href="#home" class="px-3 py-1 rounded-full bg-boutique-sand text-boutique-dark">Home</a> <a href="#catalogo" class="px-3 py-1 rounded-full bg-boutique-sand text-boutique-dark">Catalogo & Capi</a> <a href="#chi-siamo" class="px-3 py-1 rounded-full bg-boutique-sand text-boutique-dark">Chi Siamo</a> <a href="#cerimonia" class="px-3 py-1 rounded-full bg-boutique-sand text-boutique-dark">Cerimonia</a> <a href="#contatti" class="px-3 py-1 rounded-full bg-boutique-sand text-boutique-dark">Contatti</a> </div> </header> <!-- SEZIONE 1: HOME PAGE HERO --> <section id="home" class="pt-8 pb-12 sm:pt-14 sm:pb-16 px-4 sm:px-6 max-w-7xl mx-auto"> <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"> <div class="lg:col-span-7 space-y-5 text-center lg:text-left"> <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-boutique-sand border border-boutique-taupe text-boutique-dark text-xs font-medium"> <span class="material-symbols-outlined text-sm text-boutique-accent">child_care</span> Collezione Neonato & Bambino (0 - 6 Anni) </div> <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-boutique-dark leading-tight"> La dolcezza della prima infanzia, l'eleganza sartoriale italiana. </h1> <p class="text-sm sm:text-base text-boutique-dark/80 max-w-xl mx-auto lg:mx-0 leading-relaxed"> Benvenuti da <strong>Ferì Babies Boutique</strong> a Santa Maria Capua Vetere. Selezioniamo capi confortevoli, tessuti naturali anallergici, completi da cerimonia e corredini personalizzabili con ricamo a mano. </p> <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2"> <a href="#catalogo" class="px-6 py-3.5 rounded-full bg-boutique-dark text-boutique-cream font-semibold text-xs sm:text-sm hover:bg-boutique-dark/90 shadow-md transition-all flex items-center gap-2"> <span>Sfoglia il Catalogo Capi</span> <span class="material-symbols-outlined text-sm">arrow_downward</span> </a> <a href="#contatti" class="px-6 py-3.5 rounded-full bg-white border border-boutique-taupe text-boutique-dark font-semibold text-xs sm:text-sm hover:bg-boutique-sand transition-all"> Dove Trovarci (Via de Gasperi 76) </a> </div> </div> <!-- FOTO VETRINA NEGOZIO UFFICIALE --> <div class="lg:col-span-5"> <div class="relative rounded-3xl overflow-hidden border border-boutique-taupe/80 shadow-lg bg-boutique-sand aspect-[3/4] max-w-md mx-auto"> <img src="9170d16a-3b26-4868-8d52-029c09c99bb0.jpeg" alt="Vetrina Negozio Ferì Babies Boutique" class="w-full h-full object-cover" /> <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-boutique-dark/90 via-boutique-dark/40 to-transparent p-4 text-white"> <p class="font-serif text-base font-bold">Ferì Babies Boutique</p> <p class="text-xs text-white/90">Via Alcide de Gasperi, 76 · Santa Maria Capua Vetere (CE)</p> </div> </div> </div> </div> </section> <!-- SEZIONE 2: CHI SIAMO --> <section id="chi-siamo" class="py-12 bg-white border-y border-boutique-taupe/50 px-4 sm:px-6"> <div class="max-w-4xl mx-auto text-center space-y-4"> <span class="badge-pill bg-boutique-sand text-boutique-dark">La Nostra Boutique</span> <h2 class="font-serif text-2xl sm:text-4xl font-bold text-boutique-dark">Qualità, amore e cura dei dettagli</h2> <p class="text-xs sm:text-sm text-boutique-dark/80 leading-relaxed"> Nel cuore di Santa Maria Capua Vetere, Ferì Babies Boutique è il punto di riferimento per genitori, nonni e zii che desiderano il meglio per i loro piccoli. Dalle calde ciniglie e velluti ai lini estivi, ogni nostro capo è testato per garantire morbidezza, libertà di movimento e sicurezza assoluta sulla pelle. </p> <div class="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 text-left"> <div class="p-3 bg-boutique-cream rounded-2xl border border-boutique-taupe/40"> <span class="material-symbols-outlined text-boutique-accent">eco</span> <h4 class="font-bold text-xs mt-1">100% Cotone & Fibre Nobili</h4> <p class="text-[11px] text-boutique-dark/60">Tessuti traspiranti e certificati</p> </div> <div class="p-3 bg-boutique-cream rounded-2xl border border-boutique-taupe/40"> <span class="material-symbols-outlined text-boutique-accent">draw</span> <h4 class="font-bold text-xs mt-1">Ricamo con Nome</h4> <p class="text-[11px] text-boutique-dark/60">Personalizzazione artigianale</p> </div> <div class="p-3 bg-boutique-cream rounded-2xl border border-boutique-taupe/40"> <span class="material-symbols-outlined text-boutique-accent">celebration</span> <h4 class="font-bold text-xs mt-1">Battesimo & Cerimonia</h4> <p class="text-[11px] text-boutique-dark/60">Abiti eleganti 0-6 anni</p> </div> <div class="p-3 bg-boutique-cream rounded-2xl border border-boutique-taupe/40"> <span class="material-symbols-outlined text-boutique-accent">local_shipping</span> <h4 class="font-bold text-xs mt-1">Ordini WhatsApp</h4> <p class="text-[11px] text-boutique-dark/60">Blocca la taglia in un messaggio</p> </div> </div> </div> </section><!-- SEZIONE 3: CATALOGO COMPLETO CON DOPPIO FILTRO (CATEGORIA & TAGLIA) -->
+  <section id="catalogo" class="py-12 sm:py-16 px-4 sm:px-6 max-w-7xl mx-auto">
+    <div class="text-center space-y-3 mb-8">
+      <span class="badge-pill bg-boutique-taupe text-boutique-dark font-bold">Collezione & Saldi</span>
+      <h2 class="font-serif text-3xl sm:text-4xl font-bold text-boutique-dark">Catalogo Capi Ferì Boutique</h2>
+      <p class="text-xs sm:text-sm text-boutique-dark/75 max-w-xl mx-auto">
+        Filtra per categoria o seleziona la taglia del tuo bimbo. Tutti i capi sono disponibili in pronta consegna e personalizzabili con ricamo.
+      </p>
+    </div>
 
-      <!-- CAPO 2: Set Ciniglia Polvere d'Azzurro -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="cerimonia neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Cerimonia</span>
-          <img src="3323b83e-53c1-478a-9d98-942f3c194bc0.jpeg" alt="Set Ciniglia Polvere d'Azzurro" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">1 / 3 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Set Ciniglia Azzurro con Copertina</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Tutina polvere d'azzurro con copertina coordinata</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">79,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20informazioni%20sul%20Set%20Azzurro%20Ciniglia%20(79€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 3: Kimono Velluto di Bambù -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-[#9EAA97] text-white">Bamboo Bio</span>
-          <img src="4a49e9a8-089b-4af6-92fc-5548956cbe96.jpeg" alt="Kimono Velluto di Bambù Cipria" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">1 / 3 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Kimono Velluto di Bambù Cipria</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Con cappellino a orecchie e sacchetto stelline</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">29,95 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20informazioni%20sul%20Kimono%20Bambù%20(29,95€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 4: Corredino 4 Pezzi Little Bear -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Deluxe Box</span>
-          <img src="40499444-556a-40f4-a3e6-fc19364094f1.jpeg" alt="Corredino Nascita Little Bear" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">1 · 3 · 6 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Corredino 4 Pezzi "Little Bear"</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Tutina orsetti, copertina ricamata e bavaglino sagomato</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">99,99 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20ordinare%20il%20Corredino%20Little%20Bear%20(99,99€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 5: Nido Orsetti Teddy Polvere d'Azzurro -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Deluxe Box</span>
-          <img src="4d7b244b-6d9c-418e-b6d2-ad3fc64c30a1.jpeg" alt="Set Sacco Nido Orsetti Azzurro" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">1 · 3 · 6 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Sacco Nascita Teddy Polvere d'Azzurro</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Completo con tutina ciniglia imbottita e copertina</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">99,99 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Sacco%20Nascita%20Teddy%20Azzurro%20(99,99€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 6: Set Maglia a Trecce Panna -30% -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="saldi neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-sale text-white">-30% SALDO</span>
-          <img src="d7828a48-cbe9-4c6b-953e-c54efe45528d.jpeg" alt="Completo Maglia a Trecce Panna" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">3 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Maglia a Trecce Panna</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Tutina bicolore lavorata con muffole e berretto nodo</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <div>
-              <span class="text-xs text-boutique-dark/40 line-through">50,00 €</span>
-              <span class="font-serif font-bold text-base sm:text-lg text-boutique-sale ml-1">35,00 €</span>
-            </div>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Trecce%20Panna%20in%20saldo%20(35€)" target="_blank" class="p-2 rounded-xl bg-rose-50 text-boutique-sale hover:bg-rose-100 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 7: Set Tutina Grigio Polvere Cute Car -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Cotone 100%</span>
-          <img src="1c6d16a3-7b80-4f4a-b89c-b1464839306e.jpeg" alt="Set Tutina Grigio Polvere Cute Car" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">0/3 · 3/6 · 6/9 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Set Tutina & Berretto Cute Car</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">2 pezzi coordinati con macchinina e berretto</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">18,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Set%20Cute%20Car%20(18€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 8: Set Nascita Cannella & Fiori di Pesco -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Cotone Bio</span>
-          <img src="1a3cf46b-0164-4808-89c3-3e88e4cff036.jpeg" alt="Set Nascita Cannella e Fiori" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">0/3 · 3/6 · 6/9 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Set Costine Rosa Malva & Fiori</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Tutina a costine con cuffietta a nodo abbinata</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">18,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Set%20Costine%20Rosa%20Malva%20(18€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 9: Box Nascita Pizzo Sangallo -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="cerimonia neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Gift Box</span>
-          <img src="46cddf2d-a10f-44df-9d0a-38b2ed41d51b.jpeg" alt="Set Nascita Pizzo Sangallo e Velluto" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">Taglia Unica 0-1 Mese</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Set Nascita Pizzo & Velluto</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Cuffietta pizzo, camiciola, ghettina e bavaglino fiocco</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">39,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20informazioni%20sul%20Set%20Pizzo%20in%20Box%20(39€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 10: Completo Maglioncino Blu Navy & Pantalone -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Sartoriale</span>
-          <img src="52c7d5a1-e251-46a3-ac22-fc6770c20689.jpeg" alt="Completo Maglioncino Navy e Pantalone Camel" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">6 · 12 · 18 · 24 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Navy Rigato & Camel</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Maglioncino orsetto con zip, camicia e bretelle</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">52,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Navy%20e%20Camel%20(52€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-<!-- CAPO 11: Set Maglia a Trecce Camel We Are Family -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="cerimonia neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Lavorato a Maglia</span>
-          <img src="76b84280-7ac1-4772-9939-5f6de21b8ec0.jpeg" alt="Set Maglia a Trecce Camel" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">1 / 3 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Set Maglia a Trecce Camel Family</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Tutina a trecce con colletto panna e copertina orsetti</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">64,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Set%20Trecce%20Camel%20(64€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 12: Set Maglia a Trecce Prugna / Vinaccia We Are Family -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="cerimonia neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Lavorato a Maglia</span>
-          <img src="c6e41242-bc76-4c65-8bed-1a3ee0a98923.jpeg" alt="Set Maglia a Trecce Vinaccia" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">1 / 3 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Set Maglia Vinaccia con Copertina</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Tutina lavorata a trecce con colletto smerlato e plaid</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">64,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Set%20Trecce%20Vinaccia%20(64€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 13: Completo Unicorno Rosa & Pantalone Cioccolato -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Bambina 2-6a</span>
-          <img src="b0199ee0-4a71-432e-b8ce-d4af7b5fe3c0.jpeg" alt="Completo Felpa Unicorno e Borsetta Peluche" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">Da 2 a 6 Anni</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Felpa Unicorno & Borsetta</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Felpa con cappuccio fantasia unicorni, jogger e borsetta</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">28,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Unicorno%20Rosa%20(28€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 14: Completo Locally Grown Panna & Floreale -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">3 Pezzi</span>
-          <img src="91ae5959-f730-4f38-8f7c-d1305c138758.jpeg" alt="Completo Locally Grown con Pantalone Flare" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">9 · 12 · 18 · 24 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo "Locally Grown" Flare</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Felpa bouquet fiori, pantalone a zampa costine e borsetta</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">25,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Locally%20Grown%20(25€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 15: Completo Felpa Teddy Panna & Leggings Grigio -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Bambina 2-6a</span>
-          <img src="cf18d66b-c9c5-477a-a2df-bea9c1ec33b6.jpeg" alt="Completo Teddy Panna con Fiocchetti" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">Da 2 a 6 Anni</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Felpa Teddy & Fiocchetti</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Felpa peluche bouclé panna con borsina e leggings</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">28,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Teddy%20Fiocchetti%20(28€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 16: Set Deluxe Fiocchi Nude & Panna -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="cerimonia neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Corredino Luxury</span>
-          <img src="d3502f40-871a-4a10-a088-8daf5793255a.jpeg" alt="Set Nascita Fiocchi Nude con Copertina" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">1 / 3 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Set Nascita Fiocchi Nude & Velluto</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Tutina ciniglia velluto con berretto e copertina coordinata</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">78,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Set%20Nascita%20Fiocchi%20Nude%20(78€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 17: Completo Blusa Maculata & Pantalone Cioccolato Flare -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Moda Chic</span>
-          <img src="3ae01b80-564b-485e-b185-28aa586c5980.jpeg" alt="Completo Blusa Maculata Chic" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">6 · 9 · 12 · 18 · 24 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Blusa Maculata & Flare</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Camicetta con colletto arricciato, leggings flare e tracolla</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">32,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Blusa%20Maculata%20(32€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 18: Completo Felpa Best Friends & Fascia -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">3 Pezzi</span>
-          <img src="4d101813-c6f6-491e-8cab-d7b1f4138cd6.jpeg" alt="Completo Best Friends and Smiles con Fascia" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">6 · 12 · 18 · 24 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Felpa "Best Friends"</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Felpa rosa cipria con cagnolini, leggings e fascia fiocco</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">25,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Best%20Friends%20(25€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 19: Completo Sartoriale Giacca Grigia & Cravattino -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="cerimonia bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Cerimonia Bambino</span>
-          <img src="ce5629e5-dd88-4a9c-b64f-122abf63a437.jpeg" alt="Completo Sartoriale Cappottino Grigio e Pantalone" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">Da 2 a 6 Anni</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Cerimonia Cappottino Grigio</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Giacca operata con collo alla coreana, camicia pois e sciarpa</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">60,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Cerimonia%20Grigio%20(60€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 20: Tuta Peluche Roar Me con Orecchie -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Caldo Peluche</span>
-          <img src="02808956-6835-478a-b550-a97eb061e2d5.jpeg" alt="Tuta 3 Pezzi Peluche Roar Me" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">6 · 9 · 12 · 18 · 24 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Tuta 3 Pezzi "Roar Me" Navy</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Giacca peluche con cappuccio mostriciattolo, t-shirt e jogger</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">36,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20la%20Tuta%20Roar%20Me%20(36€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-<!-- CAPO 21: Completo Cappottino Rosa con Basco & Borsetta -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="cerimonia bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">4 Pezzi Luxury</span>
-          <img src="490178fe-2fd1-4eed-9927-54a24ab26dff.jpeg" alt="Completo Cappottino Rosa con Basco e Abito Pied de Poule" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">Da 2 a 6 Anni</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Cappottino Rosa & Basco</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Cappotto con fiocchi, abito pied-de-poule, basco e tracolla</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">66,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Cappottino%20Rosa%20(66€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 22: Completo 3 Pezzi Safari Adventure con Cappuccio -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">3 Pezzi</span>
-          <img src="e13ca2af-560a-4897-ad00-dcb1b674f127.jpeg" alt="Completo Tuta Safari Adventure" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">6 · 9 · 12 · 18 · 24 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo "Safari Tours" con Zip</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Felpa con cappuccio beige safari, t-shirt e cargo cioccolato</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">35,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Safari%20Tours%20(35€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 23: Completo Sovracamicia Tartan & Cargo Brown -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Stile Casual Chic</span>
-          <img src="de61e44f-7a44-4a36-9c3d-8403a8f3a3e5.jpeg" alt="Completo Sovracamicia Tartan e Cargo" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">Da 2 a 6 Anni</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Giacca Tartan & Cargo</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Giacca camicia a quadri con cappuccio, maglietta e pantaloni</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">52,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Giacca%20Tartan%20(52€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 24: Set Nascita 5 Pezzi Tartan Salvia & Bretelle -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="neonato cerimonia">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">5 Pezzi Nascita</span>
-          <img src="c76008a8-c477-4db0-b7c2-5f2bd70c8276.jpeg" alt="Corredino Tartan Salvia 5 Pezzi" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">0 / 3 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Corredino 5 Pezzi Tartan Salvia</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Gilet scozzese, ghettina, berretto, bavetta e muffole</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">24,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Corredino%20Tartan%20Salvia%20(24€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 25: Completo Cerimonia Gilet Tweed & Papillon -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="cerimonia bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Battesimo & Cerimonia</span>
-          <img src="a3c58efa-4351-42df-a25d-f1b5457b3dc0.jpeg" alt="Completo Elegante Gilet Tweed con Papillon" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">12 / 18 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Gilet Tweed & Papillon</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Camicia panna colletto rotondo, gilet micro tweed e pantalone</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">29,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Gilet%20Tweed%20(29€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 26: Felpa Bicolore Little Happy Learners -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Comfy Baby</span>
-          <img src="fb641e98-1bf3-4673-8532-cfd85ce61f55.jpeg" alt="Completo Felpa Happy Learners" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">6 · 9 · 12 · 18 · 24 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo "Little Happy Learners"</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Felpa bicolore con tascone marsupio e jogger pesca</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">22,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Happy%20Learners%20(22€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 27: Tuta Rosa Love Leopard con Cappuccio -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Moda Girl</span>
-          <img src="285f373a-b356-4fa9-81aa-b34f9ceae51e.jpeg" alt="Tuta Rosa Love Leopard" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">Da 2 a 6 Anni</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Tuta 3 Pezzi Rosa "Love Leopard"</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Felpa zip con interno cappuccio animalier, t-shirt e pantalone</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">35,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20la%20Tuta%20Love%20Leopard%20(35€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 28: Piumino Invernale Trapuntato Grigio Ghiaccio -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Inverno Chic</span>
-          <img src="309c5d9e-6509-48f1-b6cd-826156c62566.jpeg" alt="Piumino Grigio Ghiaccio con Cappuccio e Borsina" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">2 Anni</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Piumino Trapuntato Ghiaccio</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Cappotto imbottito con cappuccio in pelliccetta e borsina</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">49,99 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Piumino%20Grigio%20Ghiaccio%20(49,99€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 29: Completo Nude a Fiocchetti con Fascia -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">3 Pezzi Bon Ton</span>
-          <img src="6648d6f6-e312-40e8-8ec4-3220470dbc98.jpeg" alt="Completo Felpa Fiocchetti Neri e Fascia" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">6 · 9 · 12 · 18 · 24 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Nude & Fiocchetti</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Felpa con volant sulle spalle, pantalone coordinato e fascia</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">25,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Fiocchetti%20Nude%20(25€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 30: Completo Cardigan Rosa & Abitino Pied-de-Poule -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="cerimonia bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Cerimonia Girl</span>
-          <img src="711748fe-c2af-4764-9d90-263ac64aba9d.jpeg" alt="Completo Cardigan Rosa e Abitino" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">6 · 9 · 12 · 18 · 24 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Cardigan Rosa & Abito</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Abitino a quadretti con cardigan rosa ricamato e turbante</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">44,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Cardigan%20Rosa%20e%20Abito%20(44€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-<!-- CAPO 31: Pigiama Ciniglia Pois Rosa & Berretto -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Soffice Ciniglia</span>
-          <img src="4c350186-b0dd-4a9a-a2cb-abd39e4217b6.jpeg" alt="Pigiama Ciniglia Pois Rosa" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">9 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Pigiama Ciniglia Pois Rosa & Berretto</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Casacca con colletto smerlato, pantalone pois e cuffietta</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">22,90 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Pigiama%20Pois%20Rosa%20(22,90€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 32: Completo Woodland Animals Ruffle & Fascia -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">3 Pezzi Bon Ton</span>
-          <img src="0842c19e-b286-4ddc-82be-fd94b5f6cc33.jpeg" alt="Completo Woodland Animals con Ruffle" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">9 · 12 · 18 · 24 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo "Woodland Animals"</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Felpa con volant sulle maniche, leggings a fiorellini e fascia</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">25,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Woodland%20Animals%20(25€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 33: Set Nascita Porta Fortuna Camiciola & Scarpine -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="cerimonia neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Set Tradizione</span>
-          <img src="f9141bac-54c5-4d33-82a3-b7fd615ef1d9.jpeg" alt="Set Completo Nascita Porta Fortuna" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">Nascita / Corredino</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Set Nascita "Porta Fortuna"</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Camiciola di battesimo ricamata a mano, 2 berretti e babbucce</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">28,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Set%20Porta%20Fortuna%20(28€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 34: Completo Estivo Camicia Onde & Bermuda Saldo 50% -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="saldi bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-sale text-white">-50% SALDO</span>
-          <img src="77ca3ff5-2ab7-454f-a154-6b8249536dd6.jpeg" alt="Completo Estivo Camicia Onde e Bermuda Navy" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">6 Anni</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Camicia Onde & Bermuda</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Camicia lino leggera con micro onde e bermuda navy cargo</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <div>
-              <span class="text-xs text-boutique-dark/40 line-through">40,00 €</span>
-              <span class="font-serif font-bold text-base sm:text-lg text-boutique-sale ml-1">20,00 €</span>
-            </div>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Camicia%20Onde%20in%20saldo%20(20€)" target="_blank" class="p-2 rounded-xl bg-rose-50 text-boutique-sale hover:bg-rose-100 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 35: Completo Tropical Salvia & Bermuda con Cintura Saldo 50% -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="saldi bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-sale text-white">-50% SALDO</span>
-          <img src="52835320-4653-401b-a3ba-c43c39db3c0c.jpeg" alt="Completo Tropical Safari con Bermuda" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">5 Anni</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Camicia Jungle & Cargo</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Camicia foliage con t-shirt interna, cintura intrecciata e bermuda</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <div>
-              <span class="text-xs text-boutique-dark/40 line-through">48,00 €</span>
-              <span class="font-serif font-bold text-base sm:text-lg text-boutique-sale ml-1">24,00 €</span>
-            </div>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Jungle%20in%20saldo%20(24€)" target="_blank" class="p-2 rounded-xl bg-rose-50 text-boutique-sale hover:bg-rose-100 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 36: Polo Salvia Athl Dept & Bermuda Saldo 50% -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="saldi bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-sale text-white">-50% SALDO</span>
-          <img src="da25c713-98d1-4e5f-8749-86e38c903a7c.jpeg" alt="Completo Polo Athl Dept Salvia e Bermuda" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">6 Anni</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Polo Bicolore Salvia & Bermuda</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Polo chic salvia e bianco con bermuda scuro e bretelline</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <div>
-              <span class="text-xs text-boutique-dark/40 line-through">33,00 €</span>
-              <span class="font-serif font-bold text-base sm:text-lg text-boutique-sale ml-1">16,50 €</span>
-            </div>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Polo%20Salvia%20in%20saldo%20(16,50€)" target="_blank" class="p-2 rounded-xl bg-rose-50 text-boutique-sale hover:bg-rose-100 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 37: Camicia Mezza Manica Micro Fiori Saldo 50% -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="saldi bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-sale text-white">-50% SALDO</span>
-          <img src="a10ee580-4f8e-42dd-903f-a649d95cc0f9.jpeg" alt="Camicia Bianca Micro Fantasia" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">6 / 12 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Camicia Bianca Sartoriale Micro Print</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Cotone leggerissimo mezza manica con micro pois floreale</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <div>
-              <span class="text-xs text-boutique-dark/40 line-through">20,00 €</span>
-              <span class="font-serif font-bold text-base sm:text-lg text-boutique-sale ml-1">10,00 €</span>
-            </div>
-            <a href="https://wa.me/393398682305?text=Vorrei%20la%20Camicia%20Micro%20Print%20in%20saldo%20(10€)" target="_blank" class="p-2 rounded-xl bg-rose-50 text-boutique-sale hover:bg-rose-100 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 38: Polo Coreana Farfalline & Bermuda Lino Saldo 50% -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="saldi bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-sale text-white">-50% SALDO</span>
-          <img src="df590365-02d9-455c-8afc-d195f2be8a40.jpeg" alt="Completo Polo Coreana e Bermuda Lino con Cintura" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">4 · 5 · 6 Anni</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Polo Coreana & Bermuda Lino</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Polo con collo alla coreana, bermuda melange e cintura coordinata</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <div>
-              <span class="text-xs text-boutique-dark/40 line-through">39,90 €</span>
-              <span class="font-serif font-bold text-base sm:text-lg text-boutique-sale ml-1">19,95 €</span>
-            </div>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Polo%20Coreana%20in%20saldo%20(19,95€)" target="_blank" class="p-2 rounded-xl bg-rose-50 text-boutique-sale hover:bg-rose-100 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 39: Completo 4 Pezzi Lavorato a Maglia Azzurro Saldo 30% -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="saldi neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-sale text-white">-30% SALDO</span>
-          <img src="d5ddbc87-053b-494a-8b9b-1e7e3ed02241.jpeg" alt="Completo Maglia 4 Pezzi Azzurro con Berretto e Muffole" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">3 / 6 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo 4 Pezzi Maglia Azzurro</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Maglioncino trecce con profili blu, ghettina, berretto e muffole</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <div>
-              <span class="text-xs text-boutique-dark/40 line-through">40,00 €</span>
-              <span class="font-serif font-bold text-base sm:text-lg text-boutique-sale ml-1">28,00 €</span>
-            </div>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Maglia%20Azzurro%20in%20saldo%20(28€)" target="_blank" class="p-2 rounded-xl bg-rose-50 text-boutique-sale hover:bg-rose-100 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 40: Bavette Neonato Personalizzabili a Scelta -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-[#9EAA97] text-white">Ricamo a Scelta</span>
-          <img src="ed668d55-6373-485a-8ad4-74de41b38a0f.jpeg" alt="Bavette Neonato Personalizzabili con Scritte e Disegni" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">Personalizzabile 100%</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Bavette con Ricamo Personalizzato</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Scelta bordo colorato, disegni teneri e frase/nome a piacere</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">5,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20personalizzare%20una%20Bavetta%20(5€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-<!-- CAPO 41: Body & Intimo Melby e Lattanzio -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Intimo Puro Cotone</span>
-          <img src="22db24a3-cdff-4743-ac96-6a77fca5d373.jpeg" alt="Confezioni Body Melby e Lattanzio" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">0 / 36 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Confezioni Body & Intimo Melby</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Disponibili a mezza manica, smicati o spalla larga</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">15,00 € <span class="text-xs font-normal text-boutique-dark/60">/ pz</span></span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20informazioni%20sui%20Body%20Melby%20(15€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 42: Set 3 Body Spalla Larga Bielastici -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-[#9EAA97] text-white">Cotone Bielastico</span>
-          <img src="b0e69973-a0bf-46fd-a091-75a67927dfd6.jpeg" alt="Tris Body Spalla Larga" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">0 / 36 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Tris Body Spalla Larga / Canotta</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Set 3 pezzi bianco liscio e rigato fucsia anallergico</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">16,90 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Tris%20Body%20Canotta%20(16,90€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 43: Completo Lino Bimba con Borsetta Saldo 50% -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="saldi bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-sale text-white">-50% SALDO</span>
-          <img src="8a620cbf-9f0b-4968-aa2a-dc6e005877a5.jpeg" alt="Completo Estivo Lino Bimba con Borsetta" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">6 Anni</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Lino Bimba con Borsetta</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Top smanicato ricamato a fiori, pantalone palazzo lino e borsetta</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <div>
-              <span class="text-xs text-boutique-dark/40 line-through">39,90 €</span>
-              <span class="font-serif font-bold text-base sm:text-lg text-boutique-sale ml-1">19,95 €</span>
-            </div>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Lino%20Bimba%20in%20saldo%20(19,95€)" target="_blank" class="p-2 rounded-xl bg-rose-50 text-boutique-sale hover:bg-rose-100 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 44: Pagliaccetto Dinosauro & Giraffa Saldo 50% -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="saldi neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-sale text-white">-50% SALDO</span>
-          <img src="638a8baf-9353-4845-a5eb-f1170d83d590.jpeg" alt="Pagliaccetto Estivo Dinosauro e Giraffa" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">1 Mese</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Pagliaccetto "Dino & Giraffa"</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Con bottoncini in legno e crestina tridimensionale</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <div>
-              <span class="text-xs text-boutique-dark/40 line-through">27,00 €</span>
-              <span class="font-serif font-bold text-base sm:text-lg text-boutique-sale ml-1">13,50 €</span>
-            </div>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Pagliaccetto%20Dino%20in%20saldo%20(13,50€)" target="_blank" class="p-2 rounded-xl bg-rose-50 text-boutique-sale hover:bg-rose-100 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 45: Pagliaccetto Sangallo Rosso con Volant -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Puro Cotone</span>
-          <img src="d08d1563-eb48-459c-a1ff-bad0bafd09fe.jpeg" alt="Pagliaccetto Sangallo Rosso" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">18 / 24 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Jumpsuit Sangallo Rosso Rubino</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Pagliaccetto smanicato con volant e fiocchetto in vita</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">15,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Pagliaccetto%20Sangallo%20Rosso%20(15€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 46: Abitino Vichy Rosa con Ruffle -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Fresca Primavera</span>
-          <img src="b6075c17-f135-4cf9-a23a-984a9e5fe3e4.jpeg" alt="Abitino Quadretti Vichy Rosa" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">2 Anni</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Abitino Quadretti Vichy Rosa</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Gonnellina a pieghe con fiocco sul retro e alette ricamate</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">15,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20l'Abitino%20Vichy%20Rosa%20(15€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 47: Kimono Acquamarina & Pantalone Fantasia Saldo 30% -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="saldi neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-sale text-white">-30% SALDO</span>
-          <img src="f74d6d4d-1bda-4dc1-82b7-68b9ee1fb7f5.jpeg" alt="Completo Kimono Acquamarina" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">6 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Kimono Acquamarina</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Casacca incrociata in mussola e pantalone maculato tenue</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <div>
-              <span class="text-xs text-boutique-dark/40 line-through">28,50 €</span>
-              <span class="font-serif font-bold text-base sm:text-lg text-boutique-sale ml-1">20,00 €</span>
-            </div>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Kimono%20in%20saldo%20(20€)" target="_blank" class="p-2 rounded-xl bg-rose-50 text-boutique-sale hover:bg-rose-100 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 48: Tutina Peluche Avio Koala Saldo 30% -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="saldi neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-sale text-white">-30% SALDO</span>
-          <img src="dff2e274-850d-4954-a5e0-272d1a19e32b.jpeg" alt="Tutina Neonato Peluche Bicolore Koala" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">0 Mesi (50 cm)</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Tutina Peluche Bicolore Koala</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Soffice ciniglia blu avio e panna con ricamo koala</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <div>
-              <span class="text-xs text-boutique-dark/40 line-through">28,00 €</span>
-              <span class="font-serif font-bold text-base sm:text-lg text-boutique-sale ml-1">20,00 €</span>
-            </div>
-            <a href="https://wa.me/393398682305?text=Vorrei%20la%20Tutina%20Koala%20in%20saldo%20(20€)" target="_blank" class="p-2 rounded-xl bg-rose-50 text-boutique-sale hover:bg-rose-100 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 49: Spezzato Velluto Celeste & Cavallino Dondolo -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Morbido Velluto</span>
-          <img src="c6867602-de45-40c4-a798-3262a1978131.jpeg" alt="Completo Velluto Celeste Cavallino a Dondolo" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">1 e 3 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Spezzato Velluto Cavallino Dondolo</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Maglia in morbido velluto celeste e ghettina con piedini</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">29,95 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Velluto%20Celeste%20(29,95€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 50: Completo Puffi & Orsetto Saldo 30% -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="saldi neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-sale text-white">-30% SALDO</span>
-          <img src="d2bd2fcd-6501-4668-b2a2-8098ed5d73c8.jpeg" alt="Completo Puffi e Orsetto" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">3 e 6 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Puffo & Orsetto</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Maglia a manica lunga con stampa tenera e pantalone con piedini</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <div>
-              <span class="text-xs text-boutique-dark/40 line-through">36,00 €</span>
-              <span class="font-serif font-bold text-base sm:text-lg text-boutique-sale ml-1">25,00 €</span>
-            </div>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Puffi%20in%20saldo%20(25€)" target="_blank" class="p-2 rounded-xl bg-rose-50 text-boutique-sale hover:bg-rose-100 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 51: Tutina Interlok Caldo Cotone Orsetto -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Interlok Caldo Cotone</span>
-          <img src="2ceec15c-275c-42a6-ba05-cc82ec82bb4e.jpeg" alt="Tutina Interlok Caldo Cotone Salvia" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">0/3 · 6/9 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Tutina Interlok Caldo Cotone</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Color salvia polvere con taschino orsetto e apertura frontale</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">19,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20la%20Tutina%20Interlok%20Salvia%20(19€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 52: Tutina Battesimo Interlok Pizzo Sangallo -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="cerimonia neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Battesimo & Nascita</span>
-          <img src="b6fe4d37-8388-4384-b211-a7f07a6de46e.jpeg" alt="Tutina Battesimo Pizzo Sangallo" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">0 · 3 · 6 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Tutina Battesimo Pizzo Sangallo</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Puro bianco ottico con rouches di pizzo e fascia coordinata</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">22,00 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20la%20Tutina%20Battesimo%20Pizzo%20(22€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 53: Completo Sartoriale Giacca Principe di Galles Saldo 30% -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="saldi cerimonia bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-sale text-white">-30% SALDO</span>
-          <img src="643d706b-25f2-47b2-b4ed-c814d1934a6e.jpeg" alt="Completo Sartoriale Principe di Galles" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">6/9 · 9/12 · 12/18 · 24/36 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Sartoriale Principe Galles</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Giacca operata tweed nocciola, camicia, papillon e cintura</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <div>
-              <span class="text-xs text-boutique-dark/40 line-through">59,00 €</span>
-              <span class="font-serif font-bold text-base sm:text-lg text-boutique-sale ml-1">40,00 €</span>
-            </div>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Principe%20di%20Galles%20in%20saldo%20(40€)" target="_blank" class="p-2 rounded-xl bg-rose-50 text-boutique-sale hover:bg-rose-100 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 54: Set 2 Pezzi Tutina Righe & Dinosauro Saldo 30% -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="saldi neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-sale text-white">-30% SALDO</span>
-          <img src="4fd94ed8-2565-4be7-9f90-51bcc431e3a0.jpeg" alt="Set 2 Tutine Cotone Righe e Dinosauro" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">6 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Set 2 Tutine Cotone Righe & Dinosauro</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Confezione doppia tutina in morbido cotone traspirante</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <div>
-              <span class="text-xs text-boutique-dark/40 line-through">26,00 €</span>
-              <span class="font-serif font-bold text-base sm:text-lg text-boutique-sale ml-1">18,00 €</span>
-            </div>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Set%202%20Tutine%20in%20saldo%20(18€)" target="_blank" class="p-2 rounded-xl bg-rose-50 text-boutique-sale hover:bg-rose-100 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 55: Completo Giacca Sahariana & Jeans Saldo 50% -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="saldi bimbo">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-sale text-white">-50% SALDO</span>
-          <img src="a60bad20-ebbb-4721-b041-9f2bc9fa182b.jpeg" alt="Completo Giacca Sahariana e Jeans" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">9 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Giacca Sahariana & Jeans</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Giacchino sabbia bottoni metallici, t-shirt orsetto e denim morbido</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <div>
-              <span class="text-xs text-boutique-dark/40 line-through">56,00 €</span>
-              <span class="font-serif font-bold text-base sm:text-lg text-boutique-sale ml-1">28,00 €</span>
-            </div>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Sahariana%20in%20saldo%20(28€)" target="_blank" class="p-2 rounded-xl bg-rose-50 text-boutique-sale hover:bg-rose-100 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 56: Completo Ciniglia Blu Notte & Cagnolino -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Morbida Ciniglia</span>
-          <img src="5b63dbdb-963a-4b38-a00f-d40bb89941fc.jpeg" alt="Completo Ciniglia Blu Notte e Cagnolino" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">1 e 6 Mesi</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Completo Ciniglia Blu Notte Cagnolino</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Colletto camicia panna e ghettina coordinata morbida</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <span class="font-serif font-bold text-base sm:text-lg text-boutique-dark">29,90 €</span>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Completo%20Blu%20Notte%20Cagnolino%20(29,90€)" target="_blank" class="p-2 rounded-xl bg-boutique-sand hover:bg-emerald-50 text-emerald-600 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- CAPO 57: Set 2 Pezzi Filo di Cotone Saldo 50% -->
-      <div class="card-hover bg-white rounded-2xl border border-boutique-taupe/50 overflow-hidden flex flex-col" data-category="saldi neonato">
-        <div class="relative bg-boutique-sand/40 aspect-[4/5] flex items-center justify-center p-3">
-          <span class="absolute top-2 left-2 badge-pill bg-boutique-sale text-white">-50% SALDO</span>
-          <img src="8fa476b2-4ab4-4093-be0e-d344ee0031e0.jpeg" alt="Set Filo di Cotone Celeste o Bianco" class="w-full h-full object-contain" loading="lazy" />
-        </div>
-        <div class="p-4 flex flex-col flex-grow justify-between">
-          <div>
-            <span class="text-[11px] font-semibold text-boutique-accent uppercase tracking-wider">1 e 3 Mesi (Anche in Bianco)</span>
-            <h3 class="font-serif font-bold text-sm sm:text-base text-boutique-dark line-clamp-1 mt-0.5">Set 2 Pezzi Filo di Cotone Leggero</h3>
-            <p class="text-[11px] text-boutique-dark/60 mt-0.5">Tutina bottoni automatici, disponibile in celeste o bianco puro</p>
-          </div>
-          <div class="mt-3 pt-3 border-t border-boutique-taupe/40 flex items-center justify-between">
-            <div>
-              <span class="text-xs text-boutique-dark/40 line-through">25,00 €</span>
-              <span class="font-serif font-bold text-base sm:text-lg text-boutique-sale ml-1">12,50 €</span>
-            </div>
-            <a href="https://wa.me/393398682305?text=Vorrei%20il%20Set%20Filo%20di%20Cotone%20in%20saldo%20(12,50€)" target="_blank" class="p-2 rounded-xl bg-rose-50 text-boutique-sale hover:bg-rose-100 transition-colors">
-              <span class="material-symbols-outlined text-lg">chat</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div> <!-- Fine griglia prodotti -->
-
-  </main>
-
-  <!-- FOOTER BOUTIQUE -->
-  <footer class="bg-boutique-cream border-t border-boutique-taupe/60 pt-12 pb-16 px-4">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+    <!-- DOPPIA BARRA DI FILTRAGGIO INTERATTIVA -->
+    <div class="bg-white p-4 sm:p-6 rounded-3xl border border-boutique-taupe/60 shadow-sm mb-8 space-y-4">
+      <!-- FILTRO CATEGORIA -->
       <div>
-        <h4 class="font-serif text-2xl font-bold text-boutique-dark tracking-wide">Ferì Babies Boutique</h4>
-        <p class="text-xs text-boutique-dark/60 mt-1 max-w-sm">Abbigliamento d'eccellenza, corredini e cerimonia per neonati e bambini fino a 6 anni.</p>
-        <p class="text-xs text-boutique-dark/60 mt-2">Via Alcide de Gasperi, 76 · Santa Maria Capua Vetere (CE)</p>
+        <label class="block text-[11px] font-bold uppercase tracking-wider text-boutique-dark/60 mb-2">1. Seleziona Categoria:</label>
+        <div class="flex flex-wrap gap-2" id="filtriCategoria">
+          <button onclick="selezionaCategoria('tutti', this)" class="filtro-btn active px-4 py-2 rounded-full border border-boutique-taupe text-xs font-semibold transition-all">Tutti i Capi</button>
+          <button onclick="selezionaCategoria('saldi', this)" class="filtro-btn px-4 py-2 rounded-full border border-boutique-taupe bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-semibold transition-all">🔥 Capi in Saldo</button>
+          <button onclick="selezionaCategoria('neonato', this)" class="filtro-btn px-4 py-2 rounded-full border border-boutique-taupe bg-white text-boutique-dark/80 hover:bg-boutique-sand text-xs font-semibold transition-all">Neonato (0-12m)</button>
+          <button onclick="selezionaCategoria('bambino', this)" class="filtro-btn px-4 py-2 rounded-full border border-boutique-taupe bg-white text-boutique-dark/80 hover:bg-boutique-sand text-xs font-semibold transition-all">Bambino (1-6a)</button>
+          <button onclick="selezionaCategoria('cerimonia', this)" class="filtro-btn px-4 py-2 rounded-full border border-boutique-taupe bg-white text-boutique-dark/80 hover:bg-boutique-sand text-xs font-semibold transition-all">Battesimo & Cerimonia</button>
+        </div>
       </div>
 
-      <div class="flex flex-col sm:flex-row gap-4 items-center">
-        <a href="https://wa.me/393398682305" target="_blank" class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-emerald-600 text-white font-medium text-xs hover:bg-emerald-700 transition-colors shadow-sm">
-          <span class="material-symbols-outlined text-sm">chat</span>
-          WhatsApp Boutique Concierge
-        </a>
-        <a href="index.html" class="inline-flex items-center gap-1.5 px-5 py-3 rounded-full border border-boutique-dark/20 text-boutique-dark text-xs hover:bg-white transition-colors">
-          <span class="material-symbols-outlined text-sm">home</span>
-          Torna alla Home
-        </a>
+      <!-- FILTRO TAGLIA -->
+      <div class="pt-3 border-t border-boutique-taupe/30">
+        <label class="block text-[11px] font-bold uppercase tracking-wider text-boutique-dark/60 mb-2">2. Filtra per Taglia:</label>
+        <div class="flex flex-wrap gap-1.5 sm:gap-2" id="filtriTaglia">
+          <button onclick="selezionaTaglia('tutte', this)" class="taglia-btn active px-3 py-1.5 rounded-full border border-boutique-taupe text-xs font-medium transition-all">Tutte le Taglie</button>
+          <button onclick="selezionaTaglia('0-3m', this)" class="taglia-btn px-3 py-1.5 rounded-full border border-boutique-taupe bg-white text-boutique-dark/80 hover:bg-boutique-sand text-xs font-medium transition-all">0 - 3 Mesi</button>
+          <button onclick="selezionaTaglia('3-6m', this)" class="taglia-btn px-3 py-1.5 rounded-full border border-boutique-taupe bg-white text-boutique-dark/80 hover:bg-boutique-sand text-xs font-medium transition-all">3 - 6 Mesi</button>
+          <button onclick="selezionaTaglia('6-12m', this)" class="taglia-btn px-3 py-1.5 rounded-full border border-boutique-taupe bg-white text-boutique-dark/80 hover:bg-boutique-sand text-xs font-medium transition-all">6 - 12 Mesi</button>
+          <button onclick="selezionaTaglia('12-24m', this)" class="taglia-btn px-3 py-1.5 rounded-full border border-boutique-taupe bg-white text-boutique-dark/80 hover:bg-boutique-sand text-xs font-medium transition-all">12 - 24 Mesi</button>
+          <button onclick="selezionaTaglia('2-6a', this)" class="taglia-btn px-3 py-1.5 rounded-full border border-boutique-taupe bg-white text-boutique-dark/80 hover:bg-boutique-sand text-xs font-medium transition-all">2 - 6 Anni</button>
+        </div>
+      </div>
+
+      <!-- STATO RISULTATI -->
+      <div class="pt-2 flex items-center justify-between text-xs text-boutique-dark/70">
+        <span>Capi visibili: <strong id="capiVisibili" class="text-boutique-dark font-bold">16</strong> su <span id="totaleCapi">16</span></span>
+        <button onclick="resetFiltri()" class="text-xs text-boutique-dark underline hover:text-rose-600 font-semibold">Resetta Filtri</button>
       </div>
     </div>
 
-    <div class="max-w-6xl mx-auto border-t border-boutique-taupe/40 mt-8 pt-6 flex flex-col sm:flex-row justify-between items-center text-[11px] text-boutique-dark/50">
-      <span>© 2025 Ferì Babies Boutique. Tutti i diritti riservati.</span>
-      <span class="mt-2 sm:mt-0">Qualità Sartoriale Italiana & Fibre Naturali Certificate</span>
+    <!-- GRIGLIA PRODOTTI -->
+    <div id="grigliaProdotti" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+
+      <!-- CAPO 1: Set Nascita Orsetto Bosco Avio -->
+      <div class="card-capo bg-white rounded-2xl overflow-hidden border border-boutique-taupe/40 shadow-sm flex flex-col justify-between" data-categoria="neonato" data-taglia="0-3m 3-6m">
+        <div class="relative aspect-[3/4] bg-boutique-sand">
+          <img src="74f185d5-0cc7-4e62-9da5-a10e502ef5aa.jpeg" alt="Set Bosco Avio" class="w-full h-full object-cover" />
+          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Set 3 Pezzi</span>
+        </div>
+        <div class="p-3 sm:p-4 space-y-1.5 flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] text-boutique-dark/60 font-semibold uppercase tracking-wider">Taglie: 1 / 3 Mesi</span>
+            <h3 class="font-serif text-xs sm:text-sm font-bold text-boutique-dark line-clamp-1">Set Velluto Avio Orsetto & Bosco</h3>
+            <p class="text-[11px] text-boutique-dark/60">Tutina, berretto e copertina coordinata</p>
+          </div>
+          <div class="pt-2 flex items-center justify-between border-t border-boutique-taupe/30">
+            <span class="font-bold text-sm sm:text-base text-boutique-dark">€ 79,00</span>
+            <a href="https://wa.me/393398682305?text=Salve,%20vorrei%20informazioni%20sul%20Set%20Bosco%20Avio%20(79€)" target="_blank" class="p-2 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all text-xs flex items-center gap-1 font-semibold">
+              <span class="material-symbols-outlined text-sm">chat</span> Blocca
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAPO 2: Set Nascita Orsetto Bosco Rosa Malva -->
+      <div class="card-capo bg-white rounded-2xl overflow-hidden border border-boutique-taupe/40 shadow-sm flex flex-col justify-between" data-categoria="neonato" data-taglia="0-3m 3-6m">
+        <div class="relative aspect-[3/4] bg-boutique-sand">
+          <img src="3323b83e-53c1-478a-9d98-942f3c194bc0.jpeg" alt="Set Bosco Rosa" class="w-full h-full object-cover" />
+          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Set 3 Pezzi</span>
+        </div>
+        <div class="p-3 sm:p-4 space-y-1.5 flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] text-boutique-dark/60 font-semibold uppercase tracking-wider">Taglie: 1 / 3 Mesi</span>
+            <h3 class="font-serif text-xs sm:text-sm font-bold text-boutique-dark line-clamp-1">Set Velluto Malva Bosco & Orsetto</h3>
+            <p class="text-[11px] text-boutique-dark/60">Tutina ciniglia, cuffietta e copertina</p>
+          </div>
+          <div class="pt-2 flex items-center justify-between border-t border-boutique-taupe/30">
+            <span class="font-bold text-sm sm:text-base text-boutique-dark">€ 79,00</span>
+            <a href="https://wa.me/393398682305?text=Salve,%20vorrei%20informazioni%20sul%20Set%20Bosco%20Malva%20(79€)" target="_blank" class="p-2 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all text-xs flex items-center gap-1 font-semibold">
+              <span class="material-symbols-outlined text-sm">chat</span> Blocca
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAPO 3: Tutina Velluto Lucido Malva Cipria -->
+      <div class="card-capo bg-white rounded-2xl overflow-hidden border border-boutique-taupe/40 shadow-sm flex flex-col justify-between" data-categoria="neonato cerimonia" data-taglia="0-3m 3-6m">
+        <div class="relative aspect-[3/4] bg-boutique-sand">
+          <img src="4a49e9a8-089b-4af6-92fc-5548956cbe96.jpeg" alt="Tutina Velluto Lucido" class="w-full h-full object-cover" />
+          <span class="absolute top-2 left-2 badge-pill bg-boutique-accent text-white">Boutique</span>
+        </div>
+        <div class="p-3 sm:p-4 space-y-1.5 flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] text-boutique-dark/60 font-semibold uppercase tracking-wider">Taglie: 1 / 3 Mesi</span>
+            <h3 class="font-serif text-xs sm:text-sm font-bold text-boutique-dark line-clamp-1">Tutina Velluto Lucido & Cuffietta</h3>
+            <p class="text-[11px] text-boutique-dark/60">Fiocco laterale e manica a kimono</p>
+          </div>
+          <div class="pt-2 flex items-center justify-between border-t border-boutique-taupe/30">
+            <span class="font-bold text-sm sm:text-base text-boutique-dark">€ 29,95</span>
+            <a href="https://wa.me/393398682305?text=Salve,%20vorrei%20la%20Tutina%20Velluto%20Lucido%20(29,95€)" target="_blank" class="p-2 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all text-xs flex items-center gap-1 font-semibold">
+              <span class="material-symbols-outlined text-sm">chat</span> Blocca
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAPO 4: Set Corredino Little Bear -->
+      <div class="card-capo bg-white rounded-2xl overflow-hidden border border-boutique-taupe/40 shadow-sm flex flex-col justify-between" data-categoria="neonato" data-taglia="0-3m 3-6m 6-12m">
+        <div class="relative aspect-[3/4] bg-boutique-sand">
+          <img src="40499444-556a-40f4-a3e6-fc19364094f1.jpeg" alt="Set Little Bear" class="w-full h-full object-cover" />
+          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Corredino Completo</span>
+        </div>
+        <div class="p-3 sm:p-4 space-y-1.5 flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] text-boutique-dark/60 font-semibold uppercase tracking-wider">Taglie: 1 · 3 · 6 Mesi</span>
+            <h3 class="font-serif text-xs sm:text-sm font-bold text-boutique-dark line-clamp-1">Set Corredino Nascita "Little Bear"</h3>
+            <p class="text-[11px] text-boutique-dark/60">Tutina orsetti, copertina ricamata e bavetta</p>
+          </div>
+          <div class="pt-2 flex items-center justify-between border-t border-boutique-taupe/30">
+            <span class="font-bold text-sm sm:text-base text-boutique-dark">€ 99,99</span>
+            <a href="https://wa.me/393398682305?text=Salve,%20vorrei%20il%20Set%20Little%20Bear%20(99,99€)" target="_blank" class="p-2 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all text-xs flex items-center gap-1 font-semibold">
+              <span class="material-symbols-outlined text-sm">chat</span> Blocca
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAPO 5: Set Velluto Polvere d'Azzurro & Peluche -->
+      <div class="card-capo bg-white rounded-2xl overflow-hidden border border-boutique-taupe/40 shadow-sm flex flex-col justify-between" data-categoria="neonato" data-taglia="0-3m 3-6m 6-12m">
+        <div class="relative aspect-[3/4] bg-boutique-sand">
+          <img src="4d7b244b-6d9c-418e-b6d2-ad3fc64c30a1.jpeg" alt="Set Azzurro Nascita" class="w-full h-full object-cover" />
+          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Corredino Completo</span>
+        </div>
+        <div class="p-3 sm:p-4 space-y-1.5 flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] text-boutique-dark/60 font-semibold uppercase tracking-wider">Taglie: 1 · 3 · 6 Mesi</span>
+            <h3 class="font-serif text-xs sm:text-sm font-bold text-boutique-dark line-clamp-1">Set Azzurro Polvere con Tuta Imbottita</h3>
+            <p class="text-[11px] text-boutique-dark/60">Tuta con cappuccio, copertina e berretto</p>
+          </div>
+          <div class="pt-2 flex items-center justify-between border-t border-boutique-taupe/30">
+            <span class="font-bold text-sm sm:text-base text-boutique-dark">€ 99,99</span>
+            <a href="https://wa.me/393398682305?text=Salve,%20vorrei%20il%20Set%20Azzurro%20Polvere%20(99,99€)" target="_blank" class="p-2 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all text-xs flex items-center gap-1 font-semibold">
+              <span class="material-symbols-outlined text-sm">chat</span> Blocca
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAPO 6: Set Velluto Magenta / Rosa Antico & Peluche -->
+      <div class="card-capo bg-white rounded-2xl overflow-hidden border border-boutique-taupe/40 shadow-sm flex flex-col justify-between" data-categoria="neonato" data-taglia="0-3m 3-6m 6-12m">
+        <div class="relative aspect-[3/4] bg-boutique-sand">
+          <img src="2303e201-7504-441f-8cb6-d52b417b373c.jpeg" alt="Set Rosa Antico" class="w-full h-full object-cover" />
+          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Corredino Completo</span>
+        </div>
+        <div class="p-3 sm:p-4 space-y-1.5 flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] text-boutique-dark/60 font-semibold uppercase tracking-wider">Taglie: 1 · 3 · 6 Mesi</span>
+            <h3 class="font-serif text-xs sm:text-sm font-bold text-boutique-dark line-clamp-1">Set Magenta Bosco con Tuta Imbottita</h3>
+            <p class="text-[11px] text-boutique-dark/60">Calda tuta peluche, copertina e berretto</p>
+          </div>
+          <div class="pt-2 flex items-center justify-between border-t border-boutique-taupe/30">
+            <span class="font-bold text-sm sm:text-base text-boutique-dark">€ 99,99</span>
+            <a href="https://wa.me/393398682305?text=Salve,%20vorrei%20il%20Set%20Magenta%20Bosco%20(99,99€)" target="_blank" class="p-2 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all text-xs flex items-center gap-1 font-semibold">
+              <span class="material-symbols-outlined text-sm">chat</span> Blocca
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAPO 7: Completo Maglia Trecce Panna (-30%) -->
+      <div class="card-capo bg-white rounded-2xl overflow-hidden border border-boutique-taupe/40 shadow-sm flex flex-col justify-between" data-categoria="saldi neonato cerimonia" data-taglia="0-3m 3-6m">
+        <div class="relative aspect-[3/4] bg-boutique-sand">
+          <img src="d7828a48-cbe9-4c6b-953e-c54efe45528d.jpeg" alt="Completo Maglia Trecce" class="w-full h-full object-cover" />
+          <span class="absolute top-2 left-2 badge-pill bg-rose-600 text-white">-30% Saldi</span>
+        </div>
+        <div class="p-3 sm:p-4 space-y-1.5 flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] text-boutique-dark/60 font-semibold uppercase tracking-wider">Taglia: 3 Mesi</span>
+            <h3 class="font-serif text-xs sm:text-sm font-bold text-boutique-dark line-clamp-1">Completo Lavorato a Trecce Panna & Bianco</h3>
+            <p class="text-[11px] text-boutique-dark/60">Con berretto e babbucce calde</p>
+          </div>
+          <div class="pt-2 flex items-center justify-between border-t border-boutique-taupe/30">
+            <div>
+              <span class="line-through text-[11px] text-boutique-dark/50">€ 50,00</span>
+              <span class="font-bold text-sm sm:text-base text-rose-700 block">€ 35,00</span>
+            </div>
+            <a href="https://wa.me/393398682305?text=Salve,%20vorrei%20il%20Completo%20Trecce%20Panna%20(35€)" target="_blank" class="p-2 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all text-xs flex items-center gap-1 font-semibold">
+              <span class="material-symbols-outlined text-sm">chat</span> Blocca
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAPO 8: Set Tutina & Berretto Grigio "Cute Car" -->
+      <div class="card-capo bg-white rounded-2xl overflow-hidden border border-boutique-taupe/40 shadow-sm flex flex-col justify-between" data-categoria="neonato" data-taglia="0-3m 3-6m 6-12m">
+        <div class="relative aspect-[3/4] bg-boutique-sand">
+          <img src="1c6d16a3-7b80-4f4a-b89c-b1464839306e.jpeg" alt="Tutina Cute Car" class="w-full h-full object-cover" />
+          <span class="absolute top-2 left-2 badge-pill bg-boutique-taupe text-boutique-dark">Cotone Caldo</span>
+        </div>
+        <div class="p-3 sm:p-4 space-y-1.5 flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] text-boutique-dark/60 font-semibold uppercase tracking-wider">Taglie: 0/3 · 3/6 · 6/9 Mesi</span>
+            <h3 class="font-serif text-xs sm:text-sm font-bold text-boutique-dark line-clamp-1">Set Tutina "Cute Car" & Cuffietta</h3>
+            <p class="text-[11px] text-boutique-dark/60">100% puro cotone biologico anallergico</p>
+          </div>
+          <div class="pt-2 flex items-center justify-between border-t border-boutique-taupe/30">
+            <span class="font-bold text-sm sm:text-base text-boutique-dark">€ 18,00</span>
+            <a href="https://wa.me/393398682305?text=Salve,%20vorrei%20la%20Tutina%20Cute%20Car%20(18€)" target="_blank" class="p-2 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all text-xs flex items-center gap-1 font-semibold">
+              <span class="material-symbols-outlined text-sm">chat</span> Blocca
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAPO 9: Set Nascita Pizzo Valencienne in Scatola Regalo -->
+      <div class="card-capo bg-white rounded-2xl overflow-hidden border border-boutique-taupe/40 shadow-sm flex flex-col justify-between" data-categoria="neonato cerimonia" data-taglia="0-3m">
+        <div class="relative aspect-[3/4] bg-boutique-sand">
+          <img src="46cddf2d-a10f-44df-9d0a-38b2ed41d51b.jpeg" alt="Set Nascita Scatola" class="w-full h-full object-cover" />
+          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Box Regalo Nascita</span>
+        </div>
+        <div class="p-3 sm:p-4 space-y-1.5 flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] text-boutique-dark/60 font-semibold uppercase tracking-wider">Taglia Unica (0-3 Mesi)</span>
+            <h3 class="font-serif text-xs sm:text-sm font-bold text-boutique-dark line-clamp-1">Set Nascita Corredino con Pizzo e Fiore</h3>
+            <p class="text-[11px] text-boutique-dark/60">Tutina, coprifasce, bavetta, muffole e cuffia</p>
+          </div>
+          <div class="pt-2 flex items-center justify-between border-t border-boutique-taupe/30">
+            <span class="font-bold text-sm sm:text-base text-boutique-dark">€ 39,00</span>
+            <a href="https://wa.me/393398682305?text=Salve,%20vorrei%20il%20Set%20Nascita%20in%20Scatola%20(39€)" target="_blank" class="p-2 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all text-xs flex items-center gap-1 font-semibold">
+              <span class="material-symbols-outlined text-sm">chat</span> Blocca
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAPO 10: Completo Maglia Rigata & Pantalone Caramello -->
+      <div class="card-capo bg-white rounded-2xl overflow-hidden border border-boutique-taupe/40 shadow-sm flex flex-col justify-between" data-categoria="bambino" data-taglia="6-12m 12-24m">
+        <div class="relative aspect-[3/4] bg-boutique-sand">
+          <img src="52c7d5a1-e251-46a3-ac22-fc6770c20689.jpeg" alt="Completo Orsetto Navy" class="w-full h-full object-cover" />
+          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">3 Pezzi</span>
+        </div>
+        <div class="p-3 sm:p-4 space-y-1.5 flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] text-boutique-dark/60 font-semibold uppercase tracking-wider">Taglie: 6 · 12 · 18 · 24 Mesi</span>
+            <h3 class="font-serif text-xs sm:text-sm font-bold text-boutique-dark line-clamp-1">Completo Maglia Navy con Orsetto & Bretelle</h3>
+            <p class="text-[11px] text-boutique-dark/60">Camicetta interna e pantalone con bretelle</p>
+          </div>
+          <div class="pt-2 flex items-center justify-between border-t border-boutique-taupe/30">
+            <span class="font-bold text-sm sm:text-base text-boutique-dark">€ 52,00</span>
+            <a href="https://wa.me/393398682305?text=Salve,%20vorrei%20il%20Completo%20Maglia%20Navy%20(52€)" target="_blank" class="p-2 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all text-xs flex items-center gap-1 font-semibold">
+              <span class="material-symbols-outlined text-sm">chat</span> Blocca
+            </a>
+          </div>
+        </div>
+      </div>
+<!-- CAPO 11: Completo Felpa Cappuccio Rosa Unicorno -->
+      <div class="card-capo bg-white rounded-2xl overflow-hidden border border-boutique-taupe/40 shadow-sm flex flex-col justify-between" data-categoria="bambino" data-taglia="2-6a">
+        <div class="relative aspect-[3/4] bg-boutique-sand">
+          <img src="b0199ee0-4a71-432e-b8ce-d4af7b5fe3c0.jpeg" alt="Completo Felpa Unicorno" class="w-full h-full object-cover" />
+          <span class="absolute top-2 left-2 badge-pill bg-boutique-taupe text-boutique-dark">Con Borsetta Peluche</span>
+        </div>
+        <div class="p-3 sm:p-4 space-y-1.5 flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] text-boutique-dark/60 font-semibold uppercase tracking-wider">Taglie: 2 · 3 · 4 · 5 · 6 Anni</span>
+            <h3 class="font-serif text-xs sm:text-sm font-bold text-boutique-dark line-clamp-1">Completo Felpa Cappuccio Unicorno</h3>
+            <p class="text-[11px] text-boutique-dark/60">Felpa con marsupio, pantalone e tracollina</p>
+          </div>
+          <div class="pt-2 flex items-center justify-between border-t border-boutique-taupe/30">
+            <span class="font-bold text-sm sm:text-base text-boutique-dark">€ 28,00</span>
+            <a href="https://wa.me/393398682305?text=Salve,%20vorrei%20il%20Completo%20Unicorno%20(28€)" target="_blank" class="p-2 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all text-xs flex items-center gap-1 font-semibold">
+              <span class="material-symbols-outlined text-sm">chat</span> Blocca
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAPO 12: Completo Elegante Cappottino Rosa & Abito Pied-de-Poule -->
+      <div class="card-capo bg-white rounded-2xl overflow-hidden border border-boutique-taupe/40 shadow-sm flex flex-col justify-between" data-categoria="bambino cerimonia" data-taglia="2-6a">
+        <div class="relative aspect-[3/4] bg-boutique-sand">
+          <img src="490178fe-2fd1-4eed-9927-54a24ab26dff.jpeg" alt="Cappottino Rosa Bimba" class="w-full h-full object-cover" />
+          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Cerimonia Chic</span>
+        </div>
+        <div class="p-3 sm:p-4 space-y-1.5 flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] text-boutique-dark/60 font-semibold uppercase tracking-wider">Taglie: 2 · 3 · 4 · 5 · 6 Anni</span>
+            <h3 class="font-serif text-xs sm:text-sm font-bold text-boutique-dark line-clamp-1">Completo Cappottino Rosa con Abito & Basco</h3>
+            <p class="text-[11px] text-boutique-dark/60">Cappotto in panno, abitino chic e borsetta coordinata</p>
+          </div>
+          <div class="pt-2 flex items-center justify-between border-t border-boutique-taupe/30">
+            <span class="font-bold text-sm sm:text-base text-boutique-dark">€ 66,00</span>
+            <a href="https://wa.me/393398682305?text=Salve,%20vorrei%20il%20Cappottino%20Rosa%20Cerimonia%20(66€)" target="_blank" class="p-2 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all text-xs flex items-center gap-1 font-semibold">
+              <span class="material-symbols-outlined text-sm">chat</span> Blocca
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAPO 13: Completo Sartoriale Bambino con Cappotto Grigio Tweed -->
+      <div class="card-capo bg-white rounded-2xl overflow-hidden border border-boutique-taupe/40 shadow-sm flex flex-col justify-between" data-categoria="bambino cerimonia" data-taglia="2-6a">
+        <div class="relative aspect-[3/4] bg-boutique-sand">
+          <img src="02f62697-90fc-4ac8-a487-7b09c6644be0.jpeg" alt="Completo Sartoriale Bimbo" class="w-full h-full object-cover" />
+          <span class="absolute top-2 left-2 badge-pill bg-boutique-dark text-white">Cerimonia Maschile</span>
+        </div>
+        <div class="p-3 sm:p-4 space-y-1.5 flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] text-boutique-dark/60 font-semibold uppercase tracking-wider">Taglie: 2 · 3 · 4 · 5 · 6 Anni</span>
+            <h3 class="font-serif text-xs sm:text-sm font-bold text-boutique-dark line-clamp-1">Completo Cappotto Sartoriale Tweed & Sciarpa</h3>
+            <p class="text-[11px] text-boutique-dark/60">Camicia a micropuntini, pantalone elegante e sciarpetta</p>
+          </div>
+          <div class="pt-2 flex items-center justify-between border-t border-boutique-taupe/30">
+            <span class="font-bold text-sm sm:text-base text-boutique-dark">€ 60,00</span>
+            <a href="https://wa.me/393398682305?text=Salve,%20vorrei%20il%20Completo%20Sartoriale%20Grigio%20(60€)" target="_blank" class="p-2 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all text-xs flex items-center gap-1 font-semibold">
+              <span class="material-symbols-outlined text-sm">chat</span> Blocca
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAPO 14: Completo Giacca Scozzese con Cappuccio & Pantaloni Cargo -->
+      <div class="card-capo bg-white rounded-2xl overflow-hidden border border-boutique-taupe/40 shadow-sm flex flex-col justify-between" data-categoria="bambino" data-taglia="2-6a">
+        <div class="relative aspect-[3/4] bg-boutique-sand">
+          <img src="de61e44f-7a44-4a36-9c3d-8403a8f3a3e5.jpeg" alt="Completo Giacca Scozzese" class="w-full h-full object-cover" />
+          <span class="absolute top-2 left-2 badge-pill bg-boutique-taupe text-boutique-dark">Urban Chic</span>
+        </div>
+        <div class="p-3 sm:p-4 space-y-1.5 flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] text-boutique-dark/60 font-semibold uppercase tracking-wider">Taglie: 2 · 3 · 4 · 5 · 6 Anni</span>
+            <h3 class="font-serif text-xs sm:text-sm font-bold text-boutique-dark line-clamp-1">Completo Giacca Quadri Flanella & Pantalone Cargo</h3>
+            <p class="text-[11px] text-boutique-dark/60">Giacca con cappuccio, t-shirt e cargo morbido</p>
+          </div>
+          <div class="pt-2 flex items-center justify-between border-t border-boutique-taupe/30">
+            <span class="font-bold text-sm sm:text-base text-boutique-dark">€ 52,00</span>
+            <a href="https://wa.me/393398682305?text=Salve,%20vorrei%20il%20Completo%20Giacca%20Scozzese%20(52€)" target="_blank" class="p-2 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all text-xs flex items-center gap-1 font-semibold">
+              <span class="material-symbols-outlined text-sm">chat</span> Blocca
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAPO 15: Set Corredino Nascita Clinica 100% Cotone (-30%) -->
+      <div class="card-capo bg-white rounded-2xl overflow-hidden border border-boutique-taupe/40 shadow-sm flex flex-col justify-between" data-categoria="saldi neonato" data-taglia="0-3m 3-6m">
+        <div class="relative aspect-[3/4] bg-boutique-sand">
+          <img src="4717bef1-3a5c-48ae-8de5-8bbebdf833f3.jpeg" alt="Completo Clinica Cotone" class="w-full h-full object-cover" />
+          <span class="absolute top-2 left-2 badge-pill bg-rose-600 text-white">-30% Saldi</span>
+        </div>
+        <div class="p-3 sm:p-4 space-y-1.5 flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] text-boutique-dark/60 font-semibold uppercase tracking-wider">Taglie: 1 · 3 · 6 Mesi</span>
+            <h3 class="font-serif text-xs sm:text-sm font-bold text-boutique-dark line-clamp-1">Completo Clinica Nascita Puro Cotone</h3>
+            <p class="text-[11px] text-boutique-dark/60">Disponibile nei toni nocciola e carta da zucchero</p>
+          </div>
+          <div class="pt-2 flex items-center justify-between border-t border-boutique-taupe/30">
+            <div>
+              <span class="line-through text-[11px] text-boutique-dark/50">€ 26,00</span>
+              <span class="font-bold text-sm sm:text-base text-rose-700 block">€ 18,00</span>
+            </div>
+            <a href="https://wa.me/393398682305?text=Salve,%20vorrei%20il%20Completo%20Clinica%20(18€)" target="_blank" class="p-2 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all text-xs flex items-center gap-1 font-semibold">
+              <span class="material-symbols-outlined text-sm">chat</span> Blocca
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAPO 16: Bavette Neonato Personalizzabili con Ricamo -->
+      <div class="card-capo bg-white rounded-2xl overflow-hidden border border-boutique-taupe/40 shadow-sm flex flex-col justify-between" data-categoria="neonato" data-taglia="0-3m 3-6m 6-12m 12-24m 2-6a">
+        <div class="relative aspect-[3/4] bg-boutique-sand">
+          <img src="ed668d55-6373-485a-8ad4-74de41b38a0f.jpeg" alt="Bavette Personalizzabili" class="w-full h-full object-cover" />
+          <span class="absolute top-2 left-2 badge-pill bg-emerald-700 text-white">Ricamo a Mano</span>
+        </div>
+        <div class="p-3 sm:p-4 space-y-1.5 flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] text-boutique-dark/60 font-semibold uppercase tracking-wider">Taglia Unica</span>
+            <h3 class="font-serif text-xs sm:text-sm font-bold text-boutique-dark line-clamp-1">Bavette con Frase o Nome Personalizzato</h3>
+            <p class="text-[11px] text-boutique-dark/60">"Vuoi essere il mio padrino?", "Cuore di mamma"</p>
+          </div>
+          <div class="pt-2 flex items-center justify-between border-t border-boutique-taupe/30">
+            <span class="font-bold text-sm sm:text-base text-boutique-dark">€ 5,00</span>
+            <a href="https://wa.me/393398682305?text=Salve,%20vorrei%20personalizzare%20le%20Bavette%20(5€)" target="_blank" class="p-2 rounded-full bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all text-xs flex items-center gap-1 font-semibold">
+              <span class="material-symbols-outlined text-sm">chat</span> Ordina
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SEZIONE 4: CERIMONIA & BATTESIMO -->
+  <section id="cerimonia" class="py-14 bg-boutique-sand/50 border-t border-boutique-taupe/50 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="bg-white rounded-3xl p-6 sm:p-10 border border-boutique-taupe/70 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <span class="badge-pill bg-boutique-taupe text-boutique-dark">Reparto Speciale</span>
+          <h2 class="font-serif text-2xl sm:text-4xl font-bold text-boutique-dark">Battesimo & Cerimonie Indimenticabili</h2>
+          <p class="text-xs sm:text-sm text-boutique-dark/80 leading-relaxed">
+            Il battesimo o la prima festa importante meritano un capo all'altezza del momento. Nella nostra boutique a Santa Maria Capua Vetere curiamo ogni dettaglio: dal corredo in lino e cotone ricamato, ai completini inglesi con gilet e papillon, fino agli abitini in tulle e pizzo per le piccole principesse.
+          </p>
+          <ul class="space-y-2 text-xs sm:text-sm text-boutique-dark/80 pt-2">
+            <li class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-emerald-600 text-sm">check_circle</span>
+              <span>Consulenza personalizzata sulle misure e vestibilità esatta</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-emerald-600 text-sm">check_circle</span>
+              <span>Ricamo a mano del nome o delle iniziali sul capo</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-emerald-600 text-sm">check_circle</span>
+              <span>Confezione regalo elegante pronta per l'evento</span>
+            </li>
+          </ul>
+          <div class="pt-2">
+            <a href="https://wa.me/393398682305?text=Salve,%20vorrei%20fissare%20un%20appuntamento%20per%20un%20abito%20da%20Cerimonia/Battesimo" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-boutique-dark text-white text-xs sm:text-sm font-semibold hover:bg-boutique-dark/90 shadow transition-all">
+              <span class="material-symbols-outlined text-sm">event</span> Prenota Consulenza in Negozio
+            </a>
+          </div>
+        </div>
+        <div class="lg:col-span-5 grid grid-cols-2 gap-3">
+          <img src="46cddf2d-a10f-44df-9d0a-38b2ed41d51b.jpeg" alt="Box Battesimo" class="rounded-2xl object-cover aspect-square border border-boutique-taupe/60 shadow-xs" />
+          <img src="d7828a48-cbe9-4c6b-953e-c54efe45528d.jpeg" alt="Completo Maglia" class="rounded-2xl object-cover aspect-square border border-boutique-taupe/60 shadow-xs" />
+          <img src="490178fe-2fd1-4eed-9927-54a24ab26dff.jpeg" alt="Abitino Rosa" class="rounded-2xl object-cover aspect-square border border-boutique-taupe/60 shadow-xs" />
+          <img src="02f62697-90fc-4ac8-a487-7b09c6644be0.jpeg" alt="Cappotto Bimbo" class="rounded-2xl object-cover aspect-square border border-boutique-taupe/60 shadow-xs" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEZIONE 5: CONTATTI & DOVE TROVARCI -->
+  <section id="contatti" class="py-14 px-4 sm:px-6 max-w-7xl mx-auto">
+    <div class="text-center space-y-3 mb-10">
+      <span class="badge-pill bg-boutique-taupe text-boutique-dark">Vieni a Trovarci</span>
+      <h2 class="font-serif text-3xl sm:text-4xl font-bold text-boutique-dark">Siamo a Santa Maria Capua Vetere</h2>
+      <p class="text-xs sm:text-sm text-boutique-dark/75 max-w-lg mx-auto">
+        Vieni a scoprire di persona la morbidezza dei tessuti e tocca con mano le collezioni 0-6 anni.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- INFO E CONTATTI -->
+      <div class="lg:col-span-5 bg-white p-6 sm:p-8 rounded-3xl border border-boutique-taupe/60 shadow-sm space-y-6">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-full bg-boutique-sand flex items-center justify-center text-boutique-dark shrink-0">
+            <span class="material-symbols-outlined text-lg">location_on</span>
+          </div>
+          <div>
+            <h4 class="font-bold text-sm text-boutique-dark">Indirizzo Boutique</h4>
+            <p class="text-xs sm:text-sm text-boutique-dark/80 mt-0.5">Via Alcide de Gasperi, 76</p>
+            <p class="text-xs text-boutique-dark/60">81055 Santa Maria Capua Vetere (CE)</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-full bg-boutique-sand flex items-center justify-center text-boutique-dark shrink-0">
+            <span class="material-symbols-outlined text-lg">schedule</span>
+          </div>
+          <div>
+            <h4 class="font-bold text-sm text-boutique-dark">Orari di Apertura</h4>
+            <p class="text-xs sm:text-sm text-boutique-dark/80 mt-0.5">Lunedì – Sabato</p>
+            <p class="text-xs text-boutique-dark/60">Mattina: 09:30 – 13:00 | Pomeriggio: 16:30 – 20:00</p>
+            <p class="text-[11px] text-rose-700 font-semibold mt-1">Domenica: Chiuso</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-700 shrink-0">
+            <span class="material-symbols-outlined text-lg">chat</span>
+          </div>
+          <div>
+            <h4 class="font-bold text-sm text-boutique-dark">Contatto Diretto & WhatsApp</h4>
+            <p class="text-xs sm:text-sm text-boutique-dark/80 mt-0.5">Telefono: +39 339 8682305</p>
+            <a href="https://wa.me/393398682305" target="_blank" class="inline-block mt-2 text-xs font-bold text-emerald-700 hover:text-emerald-800 underline">
+              Invia subito un messaggio su WhatsApp &rarr;
+            </a>
+          </div>
+        </div>
+
+        <a href="https://maps.google.com/?q=Via+Alcide+de+Gasperi+76,+Santa+Maria+Capua+Vetere" target="_blank" class="w-full py-3 rounded-full bg-boutique-sand border border-boutique-taupe text-boutique-dark font-semibold text-xs sm:text-sm text-center block hover:bg-boutique-taupe/50 transition-colors">
+          Apri Mappa & Calcola Percorso
+        </a>
+      </div>
+
+      <!-- MAPPA EMBED / GRAFICA INTERATTIVA -->
+      <div class="lg:col-span-7 h-[360px] sm:h-[400px] rounded-3xl overflow-hidden border border-boutique-taupe/70 shadow-sm relative bg-boutique-sand">
+        <iframe 
+          title="Mappa Ferì Babies Boutique Santa Maria Capua Vetere"
+          class="w-full h-full border-0" 
+          src="https://maps.google.com/maps?q=Via%20Alcide%20de%20Gasperi%2076,%20Santa%20Maria%20Capua%20Vetere&t=&z=16&ie=UTF8&iwloc=&output=embed"
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER ISTITUZIONALE -->
+  <footer class="bg-boutique-dark text-boutique-cream py-10 px-4 sm:px-6 border-t border-boutique-dark">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+      <div>
+        <span class="font-serif text-xl font-bold tracking-tight">Ferì Babies Boutique</span>
+        <p class="text-xs text-boutique-cream/70 mt-1">Via Alcide de Gasperi, 76 · Santa Maria Capua Vetere (CE)</p>
+      </div>
+      <div class="flex flex-wrap justify-center gap-4 text-xs text-boutique-cream/80">
+        <a href="#home" class="hover:text-white">Home</a>
+        <a href="#catalogo" class="hover:text-white">Catalogo Capi</a>
+        <a href="#chi-siamo" class="hover:text-white">Chi Siamo</a>
+        <a href="#cerimonia" class="hover:text-white">Cerimonia</a>
+        <a href="#contatti" class="hover:text-white">Contatti</a>
+      </div>
+      <div class="text-[11px] text-boutique-cream/50">
+        © 2025 Ferì Babies Boutique · Tutti i diritti riservati
+      </div>
     </div>
   </footer>
 
-  <!-- SCRIPT JS FILTRI INTERATTIVI -->
+  <!-- SCRIPT JAVASCRIPT DOPPIO FILTRO (CATEGORIA & TAGLIA) -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const filterButtons = document.querySelectorAll('.filter-btn');
-      const cards = document.querySelectorAll('#productGrid > div');
-      const counter = document.getElementById('countDisplay');
+    let categoriaAttiva = 'tutti';
+    let tagliaAttiva = 'tutte';
 
-      filterButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          // Rimuovi classe active da tutti i tasti
-          filterButtons.forEach(b => {
-            b.classList.remove('active', 'bg-boutique-dark', 'text-white');
-            b.classList.add('bg-white', 'text-boutique-dark/80');
-          });
+    function selezionaCategoria(cat, btn) {
+      categoriaAttiva = cat;
+      document.querySelectorAll('#filtriCategoria .filtro-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applicaFiltri();
+    }
 
-          // Aggiungi active al tasto cliccato
-          btn.classList.add('active', 'bg-boutique-dark', 'text-white');
-          btn.classList.remove('bg-white', 'text-boutique-dark/80');
+    function selezionaTaglia(taglia, btn) {
+      tagliaAttiva = taglia;
+      document.querySelectorAll('#filtriTaglia .taglia-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applicaFiltri();
+    }
 
-          const filter = btn.getAttribute('data-filter');
-          let visibleCount = 0;
+    function applicaFiltri() {
+      const cards = document.querySelectorAll('#grigliaProdotti .card-capo');
+      let visibili = 0;
 
-          cards.forEach(card => {
-            const categories = card.getAttribute('data-category') || '';
-            if (filter === 'all' || categories.includes(filter)) {
-              card.style.display = 'flex';
-              visibleCount++;
-            } else {
-              card.style.display = 'none';
-            }
-          });
+      cards.forEach(card => {
+        const cardCategorie = card.getAttribute('data-categoria') || '';
+        const cardTaglie = card.getAttribute('data-taglia') || '';
 
-          if (counter) {
-            counter.textContent = visibleCount;
-          }
-        });
+        const corrispondeCategoria = (categoriaAttiva === 'tutti') || cardCategorie.includes(categoriaAttiva);
+        const corrispondeTaglia = (tagliaAttiva === 'tutte') || cardTaglie.includes(tagliaAttiva);
+
+        if (corrispondeCategoria && corrispondeTaglia) {
+          card.style.display = 'flex';
+          visibili++;
+        } else {
+          card.style.display = 'none';
+        }
       });
+
+      document.getElementById('capiVisibili').innerText = visibili;
+    }
+
+    function resetFiltri() {
+      categoriaAttiva = 'tutti';
+      tagliaAttiva = 'tutte';
+      document.querySelectorAll('#filtriCategoria .filtro-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector('#filtriCategoria .filtro-btn').classList.add('active');
+      document.querySelectorAll('#filtriTaglia .taglia-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector('#filtriTaglia .taglia-btn').classList.add('active');
+      applicaFiltri();
+    }
+
+    // Inizializza contatore totale capi
+    document.addEventListener('DOMContentLoaded', () => {
+      const totale = document.querySelectorAll('#grigliaProdotti .card-capo').length;
+      document.getElementById('totaleCapi').innerText = totale;
+      document.getElementById('capiVisibili').innerText = totale;
     });
   </script>
 
