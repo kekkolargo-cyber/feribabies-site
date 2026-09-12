@@ -880,61 +880,112 @@
   </footer>
 
   <!-- SCRIPT JAVASCRIPT DOPPIO FILTRO (CATEGORIA & TAGLIA) -->
+  <!-- SCRIPT FILTRI DINAMICI & CONTEGGIO CAPI AUTOMATICO -->
   <script>
+    // Stato corrente dei filtri attivi
     let categoriaAttiva = 'tutti';
     let tagliaAttiva = 'tutte';
 
-    function selezionaCategoria(cat, btn) {
-      categoriaAttiva = cat;
-      document.querySelectorAll('#filtriCategoria .filtro-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      applicaFiltri();
+    // Funzione che calcola ed aggiorna automaticamente il numero reale di capi
+    function aggiornaContatoreCapi() {
+      const tuttiCapi = document.querySelectorAll('.card-capo');
+      const capiVisibili = document.querySelectorAll('.card-capo:not(.hidden)').length;
+
+      // Cerca i possibili elementi del contatore nella pagina
+      const elContatore = document.getElementById('conteggioCapi');
+      const elBadge = document.getElementById('badgeConteggio');
+      const elTotaleGenerale = document.getElementById('totaleCapiGenerale');
+
+      if (elContatore) {
+        elContatore.textContent = `Mostrando ${capiVisibili} di ${tuttiCapi.length} capi`;
+      }
+      if (elBadge) {
+        elBadge.textContent = `${capiVisibili} Capi Disponibili`;
+      }
+      if (elTotaleGenerale) {
+        elTotaleGenerale.textContent = `${tuttiCapi.length} Capi`;
+      }
     }
 
-    function selezionaTaglia(taglia, btn) {
-      tagliaAttiva = taglia;
-      document.querySelectorAll('#filtriTaglia .taglia-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      applicaFiltri();
-    }
-
+    // Funzione principale che applica i filtri combinati
     function applicaFiltri() {
-      const cards = document.querySelectorAll('#grigliaProdotti .card-capo');
-      let visibili = 0;
+      const cards = document.querySelectorAll('.card-capo');
 
       cards.forEach(card => {
-        const cardCategorie = card.getAttribute('data-categoria') || '';
-        const cardTaglie = card.getAttribute('data-taglia') || '';
+        const attrCat = card.getAttribute('data-categoria') || '';
+        const attrTaglia = card.getAttribute('data-taglia') || '';
 
-        const corrispondeCategoria = (categoriaAttiva === 'tutti') || cardCategorie.includes(categoriaAttiva);
-        const corrispondeTaglia = (tagliaAttiva === 'tutte') || cardTaglie.includes(tagliaAttiva);
+        // Controllo Categoria
+        const matchCategoria = (categoriaAttiva === 'tutti') || attrCat.toLowerCase().includes(categoriaAttiva.toLowerCase());
 
-        if (corrispondeCategoria && corrispondeTaglia) {
+        // Controllo Taglia
+        const matchTaglia = (tagliaAttiva === 'tutte') || attrTaglia.toLowerCase().includes(tagliaAttiva.toLowerCase());
+
+        // Mostra o nascondi il capo
+        if (matchCategoria && matchTaglia) {
+          card.classList.remove('hidden');
           card.style.display = 'flex';
-          visibili++;
         } else {
+          card.classList.add('hidden');
           card.style.display = 'none';
         }
       });
 
-      document.getElementById('capiVisibili').innerText = visibili;
+      // Aggiorna subito il contatore numerico
+      aggiornaContatoreCapi();
     }
 
-    function resetFiltri() {
-      categoriaAttiva = 'tutti';
-      tagliaAttiva = 'tutte';
-      document.querySelectorAll('#filtriCategoria .filtro-btn').forEach(b => b.classList.remove('active'));
-      document.querySelector('#filtriCategoria .filtro-btn').classList.add('active');
-      document.querySelectorAll('#filtriTaglia .taglia-btn').forEach(b => b.classList.remove('active'));
-      document.querySelector('#filtriTaglia .taglia-btn').classList.add('active');
-      applicaFiltri();
-    }
-
-    // Inizializza contatore totale capi
+    // Configurazione dei bottoni dei filtri al caricamento
     document.addEventListener('DOMContentLoaded', () => {
-      const totale = document.querySelectorAll('#grigliaProdotti .card-capo').length;
-      document.getElementById('totaleCapi').innerText = totale;
-      document.getElementById('capiVisibili').innerText = totale;
+      // 1. Calcolo iniziale a pagina caricata
+      aggiornaContatoreCapi();
+
+      // 2. Event listener per bottoni Categoria (es. data-filter="corredino", "bambino", "saldi")
+      const btnCategorie = document.querySelectorAll('[data-filter-cat], button[data-filter]');
+      btnCategorie.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          categoriaAttiva = btn.getAttribute('data-filter-cat') || btn.getAttribute('data-filter') || 'tutti';
+
+          // Aggiorna stile attivo dei bottoni categoria
+          btnCategorie.forEach(b => {
+            b.classList.remove('bg-boutique-dark', 'text-white');
+            b.classList.add('bg-boutique-sand/50', 'text-boutique-dark');
+          });
+          btn.classList.remove('bg-boutique-sand/50', 'text-boutique-dark');
+          btn.classList.add('bg-boutique-dark', 'text-white');
+
+          applicaFiltri();
+        });
+      });
+
+      // 3. Event listener per bottoni Taglia (es. data-taglia="0-24m", "2-6a", "nascita")
+      const btnTaglie = document.querySelectorAll('[data-filter-taglia]');
+      btnTaglie.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          tagliaAttiva = btn.getAttribute('data-filter-taglia') || 'tutte';
+
+          // Aggiorna stile attivo dei bottoni taglia
+          btnTaglie.forEach(b => {
+            b.classList.remove('border-boutique-dark', 'bg-boutique-dark', 'text-white');
+            b.classList.add('border-boutique-taupe/40', 'bg-white', 'text-boutique-dark');
+          });
+          btn.classList.remove('border-boutique-taupe/40', 'bg-white');
+          btn.classList.add('border-boutique-dark', 'bg-boutique-dark', 'text-white');
+
+          applicaFiltri();
+        });
+      });
+
+      // 4. Gestione Menu Mobile (Hamburger) se presente
+      const btnMenuMobile = document.getElementById('menuMobileBtn');
+      const menuMobile = document.getElementById('menuMobile');
+      if (btnMenuMobile && menuMobile) {
+        btnMenuMobile.addEventListener('click', () => {
+          menuMobile.classList.toggle('hidden');
+        });
+      }
     });
   </script>
 
